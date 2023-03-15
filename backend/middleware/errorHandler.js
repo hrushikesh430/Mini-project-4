@@ -1,6 +1,6 @@
 const AppError = require("../utils/AppError")
 
- const errorHandler = (error,req,res,next)=>{
+const errorHandler = (error,req,res,next)=>{
     console.log("App Error")
 
     // we can check error.name == validation ans all stuffs
