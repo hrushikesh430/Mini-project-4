@@ -7,6 +7,22 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser")
 const route = require("./routes/route");
 const errorHandler = require('./middleware/errorHandler')
+const passport = require('passport');
+const session = require('express-session')
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GOOGLE_CLIENT_ID = '1023260677636-rilkrn4ohrqidp221jt1vce73crp2fup.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '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';
+
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'SECRET' 
+  }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 // Body-parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
