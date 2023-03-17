@@ -32,13 +32,46 @@ app.use(bodyParser.json())
 
 exports.getAuth = tryCatch(async(req,res)=>{
     // passport.authenticate('google', { scope : ['profile', 'email'] });
+    console.log(req.user)
     res.json({
         status:"success"
     })
 })
 
 exports.getCallback = tryCatch(async(req,res)=>{
+    
+    console.log(req.user.emails[0].value)
+    const employee = await Employee.find({email:req.user.emails[0].value});
+    // const employeer = await Employeer.find({email:req.user.emails[0].value});
+
+    console.log("here")
+    if(employee)
+    {
+        
+        // console.log("here 1")
+        
+        const accessToken = jwt.sign({employee},process.env.ACCESS_TOKEN);
+        return res.cookie("access_token",accessToken).json({
+            status:"Successful as employee",
+            token:accessToken,
+            data:employee
+        })
+    }
+    const employeer = await Employeer.find({email:req.user.emails[0].value});
+    if(employeer)
+    {
+    // console.log("here 2")
+
+        const accessToken = jwt.sign({employeer},process.env.ACCESS_TOKEN);
+        return res.cookie("access_token",accessToken).json({
+            status:"Successful as employee",
+            token:accessToken,
+            data:employeer
+        })
+    }
+
     res.json({
-        status:"success callback"
-    })
+        status:"failure, user not found"
+    })  
+  
 })

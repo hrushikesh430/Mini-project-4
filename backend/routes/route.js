@@ -8,6 +8,8 @@ const session = require('express-session')
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const GOOGLE_CLIENT_ID = '1023260677636-rilkrn4ohrqidp221jt1vce73crp2fup.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = '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';
+const Employee = require('../models/Employee');
+const Employeer = require('../models/Employeer');
 
 const cookieParser = require("cookie-parser");
 // Body-parser middleware
@@ -29,7 +31,7 @@ passport.use(new GoogleStrategy({
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/landing"
   },
-  function(accessToken, refreshToken, profile, done) {
+  async function(accessToken, refreshToken, profile, done) {
       userProfile=profile;
       return done(null, userProfile);
   }
@@ -37,6 +39,7 @@ passport.use(new GoogleStrategy({
 
 passport.serializeUser(function(user, cb) {
     cb(null, user);
+   
   });
   
   passport.deserializeUser(function(obj, cb) {
@@ -52,6 +55,7 @@ const login = require('../controllers/login');
 const register = require('../controllers/register')
 
 const Oauth = require('../controllers/signInWithGoogle');
+const { Cookie } = require("express-session");
 
 
 
