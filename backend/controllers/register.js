@@ -47,7 +47,7 @@ exports.getRegister = tryCatch(async(req,res,next)=>{
     if(type == 1)
     {
         const employee = new Employee({name,email,password,phone});
-        employee.save();
+         employee.save();
         return res.json({
             status:"Success",
             data:employee 

@@ -38,7 +38,7 @@ app.get('/',(req,res)=>{
 
 // db 
 mongoose.set('strictQuery', true);
-mongoose.connect("mongodb+srv://hru:bhosale@cluster1.rgvgv2s.mongodb.net/?retryWrites=true&w=majority", () => {
+mongoose.connect(process.env.URI, () => {
     console.log("Db connected");
   });
 

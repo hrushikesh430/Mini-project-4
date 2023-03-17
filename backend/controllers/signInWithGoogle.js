@@ -10,28 +10,16 @@ const AppError = require("../utils/AppError");
 const jwt = require("jsonwebtoken")
 const Employee = require('../models/Employee');
 const Employeer = require('../models/Employeer');
-// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-// const GOOGLE_CLIENT_ID = '1023260677636-rilkrn4ohrqidp221jt1vce73crp2fup.apps.googleusercontent.com';
-// const GOOGLE_CLIENT_SECRET = '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';
+
 
 // Body-parser middleware
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
 
-// passport.use(new GoogleStrategy({
-//     clientID: GOOGLE_CLIENT_ID,
-//     clientSecret: GOOGLE_CLIENT_SECRET,
-//     callbackURL: "http://localhost:3000/auth/google/callback"
-//   },
-//   function(accessToken, refreshToken, profile, done) {
-//       userProfile=profile;
-//       return done(null, userProfile);
-//   }
-// ));
+
 
 exports.getAuth = tryCatch(async(req,res)=>{
-    // passport.authenticate('google', { scope : ['profile', 'email'] });
     console.log(req.user)
     res.json({
         status:"success"
@@ -40,11 +28,10 @@ exports.getAuth = tryCatch(async(req,res)=>{
 
 exports.getCallback = tryCatch(async(req,res)=>{
     
-    console.log(req.user.emails[0].value)
+    // console.log(req.user.emails[0].value)
     const employee = await Employee.find({email:req.user.emails[0].value});
     // const employeer = await Employeer.find({email:req.user.emails[0].value});
 
-    console.log("here")
     if(employee)
     {
         
