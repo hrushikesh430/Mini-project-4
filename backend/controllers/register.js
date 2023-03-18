@@ -26,7 +26,7 @@ exports.getRegister = tryCatch(async(req,res,next)=>{
 
  exports.postRegister = tryCatch(async(req,res,next)=>{
     console.log(req.body)
-   const {name,email,password,phone,type} = req.body;
+   const {name,email,password,phone,Type} = req.body;
    
     if(!name || !email || !phone || !password){
         
@@ -35,7 +35,7 @@ exports.getRegister = tryCatch(async(req,res,next)=>{
     }
    
 
-    if(type == 2)
+    if(Type == 2)
     {
         const employer = new Employeer({name,email,password,phone});
         employer.save();
@@ -44,7 +44,7 @@ exports.getRegister = tryCatch(async(req,res,next)=>{
             data:employer 
         });
     }
-    if(type == 1)
+    if(Type == 1)
     {
         const employee = new Employee({name,email,password,phone});
          employee.save();

@@ -11,7 +11,13 @@ const jwt = require("jsonwebtoken")
 const Employee = require('../models/Employee');
 const Employeer = require('../models/Employeer');
 
+if (typeof localStorage === "undefined" || localStorage === null) {
+    var LocalStorage = require('node-localstorage').LocalStorage;
+    localStorage = new LocalStorage('./scratch');
+}
 // Body-parser middleware
+app.use(cookieParser());
+
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
@@ -35,7 +41,9 @@ exports.postLogin = tryCatch(async(req,res,next)=>{
     if(employee)
     {
 
-        const accessToken = jwt.sign({employee},process.env.ACCESS_TOKEN);
+        const accessToken = jwt.sign({email,password},process.env.ACCESS_TOKEN);
+        localStorage.setItem('status', 'employee');
+        console.log(localStorage.getItem('status'));
         return res.cookie("access_token",accessToken).json({
             status:"Successful as employee",
             token:accessToken,
@@ -44,7 +52,9 @@ exports.postLogin = tryCatch(async(req,res,next)=>{
     }
     if(employeer)
     {
-        const accessToken = jwt.sign({employeer},process.env.ACCESS_TOKEN);
+        const accessToken = jwt.sign({email,password},process.env.ACCESS_TOKEN);
+        localStorage.setItem('status', 'employeer');
+        console.log(localStorage.getItem('status'));
         return res.cookie("access_token",accessToken).json({
             status:"Successful as employee",
             token:accessToken,

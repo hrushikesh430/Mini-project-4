@@ -16,9 +16,37 @@ const employee = new mongoose.Schema({
     phone:{
         type:Number,
         required:[true,"Please provide your email"]
+    },
+    occuopation:{
+        type:String,
+        default:"Employee"
+    },
+    address:{
+        type:String,
+        default:null
+
+    },
+    aboutMe:{
+        type:String,
+        default:null
+        
+    },
+    skills:[
+        {
+            type:String,
+            default:null
+        }
+    ],
+    location:{
+        type:{
+            type:String
+        },
+        coordinates:{
+            type:Array
+        }
     }
    
 
 });
-const Employee = mongoose.model("employees",employee); 
+const Employee = mongoose.model("employee",employee); 
 module.exports = Employee

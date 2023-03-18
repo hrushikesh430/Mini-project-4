@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const employeer = new mongoose.Schema({
+const employee = new mongoose.Schema({
     name:{
         type:String,
         required :[true,"Please provide your name"]  
@@ -16,9 +16,35 @@ const employeer = new mongoose.Schema({
     phone:{
         type:Number,
         required:[true,"Please provide your email"]
+    },
+    occuopation:{
+        type:String,
+        default:"Employeer"
+    },
+    Address:{
+        type:String,
+        default:null
+    },
+    aboutMe:{
+        type:String,
+        default:null
+    },
+    skills:[
+        {
+            type:String,
+            default:null
+        }
+    ],
+    location:{
+        type:{
+            type:String
+        },
+        coordinates:{
+            type:Array
+        }
     }
    
 
 });
-const Employeer = mongoose.model("employeer",employeer); 
-module.exports = Employeer
+const Employee = mongoose.model("employeer",employee); 
+module.exports = Employee

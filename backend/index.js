@@ -1,14 +1,17 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const PORT = 3000 | process.env.PORT;
+const PORT = 3000 || process.env.PORT;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser")
-const route = require("./routes/route");
+const employeeRoute = require("./routes/employeeRoute");
+const employeerRoute = require('./routes/employeerRoute');
 const errorHandler = require('./middleware/errorHandler')
 const passport = require('passport');
 const session = require('express-session')
+
+
 
 
 app.use(session({
@@ -19,6 +22,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 
 
@@ -48,4 +52,5 @@ app.listen(PORT , (req,res)=>{
 
 //middleware
 app.use(errorHandler);
-app.use(route);
+app.use('/employee',employeeRoute);
+app.use('/employeer',employeerRoute);

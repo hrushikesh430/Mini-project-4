@@ -10,6 +10,13 @@ const GOOGLE_CLIENT_ID = '1023260677636-rilkrn4ohrqidp221jt1vce73crp2fup.apps.go
 const GOOGLE_CLIENT_SECRET = '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';
 const Employee = require('../models/Employee');
 const Employeer = require('../models/Employeer');
+const autheticationToken = require('../middleware/authentication')
+const sample = require('../controllers/sample');
+const employeeProfile = require('../controllers/employee/employeeProfile');
+// const employeerProfile = require('../controllers/employeerProfile');
+const employeeAboutMe = require('../controllers/employee/employeeAboutMe');
+// const employeerAboutMe = require('../controllers/employeerAboutMe');
+const employeeSkills = require('../controllers/employee/employeeSkills');
 
 const cookieParser = require("cookie-parser");
 // Body-parser middleware
@@ -48,6 +55,7 @@ passport.serializeUser(function(user, cb) {
 
 
 
+  app.use(employeeProfile.getEmployeeProfile);
 
 // ----------- Controller -----------
 
@@ -56,6 +64,7 @@ const register = require('../controllers/register')
 
 const Oauth = require('../controllers/signInWithGoogle');
 const { Cookie } = require("express-session");
+const { authenticate } = require("passport");
 
 
 
@@ -63,7 +72,7 @@ const { Cookie } = require("express-session");
 router.get('/login',login.getLogin);
 router.post('/login',login.postLogin);
 
-//register
+//register 
 router.get('/register',register.getRegister);
 router.post('/register',register.postRegister)
 
@@ -71,5 +80,26 @@ router.post('/register',register.postRegister)
 router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }),Oauth.getAuth);
 router.get('/landing',passport.authenticate('google', { failureRedirect: '/error' }),Oauth.getCallback)
 
+
+
+// profile Update for employee
+router.get('/profileUpdate',autheticationToken,employeeProfile.getEmployeeProfile)
+router.post('/profileUpdate',autheticationToken,employeeProfile.postEmployeeProfile);
+
+
+
+
+// About Me for employee
+router.get('/updateAboutMe',autheticationToken,employeeAboutMe.getEmployeeAboutMe);
+router.post('/updateAboutMe', autheticationToken,employeeAboutMe.postEmployeeAboutMe);
+
+
+
+
+// skills for employee
+router.get('/updateSkills',autheticationToken,employeeSkills.getEmployeeSkills);
+router.post('/updateSkills',autheticationToken,employeeSkills.postEmployeeSkills);
+
+router.get('/sample',autheticationToken,sample.getSample);
 
 module.exports = router;   
