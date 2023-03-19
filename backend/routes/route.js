@@ -54,30 +54,27 @@ passport.serializeUser(function(user, cb) {
   });
 
 
-
-
-
 // ----------- Controller -----------
 
+const login = require('../controllers/login');
+const register = require('../controllers/register')
 
-// profile Update for employee
-router.get('/profileUpdate',autheticationToken,employeeProfile.getEmployeeProfile)
-router.post('/profileUpdate',autheticationToken,employeeProfile.postEmployeeProfile);
-
-
-
-
-// About Me for employee
-router.get('/updateAboutMe',autheticationToken,employeeAboutMe.getEmployeeAboutMe);
-router.post('/updateAboutMe', autheticationToken,employeeAboutMe.postEmployeeAboutMe);
+const Oauth = require('../controllers/signInWithGoogle');
+const { Cookie } = require("express-session");
+const { authenticate } = require("passport");
 
 
 
+//login
+router.get('/login',login.getLogin);
+router.post('/login',login.postLogin);
 
-// skills for employee
-router.get('/updateSkills',autheticationToken,employeeSkills.getEmployeeSkills);
-router.post('/updateSkills',autheticationToken,employeeSkills.postEmployeeSkills);
+//register 
+router.get('/register',register.getRegister);
+router.post('/register',register.postRegister)
 
-router.get('/sample',autheticationToken,sample.getSample);
+//OAuth
+router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }),Oauth.getAuth);
+router.get('/landing',passport.authenticate('google', { failureRedirect: '/error' }),Oauth.getCallback)
 
 module.exports = router;   

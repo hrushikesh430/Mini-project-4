@@ -31,6 +31,12 @@ const employee = new mongoose.Schema({
         default:null
         
     },
+    insta:{
+        type:String
+    },
+    facebook:{
+        type:String
+    },
     skills:[
         {
             type:String,

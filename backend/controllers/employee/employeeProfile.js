@@ -29,7 +29,7 @@ exports.postEmployeeProfile = tryCatch(async(req,res,next)=>{
 
     
    
-    const data = await Employee.findOneAndUpdate({email:req.employee[0].email},{address:req.body.address,phone:req.body.phone}).then((data)=>{
+    const data = await Employee.findOneAndUpdate({email:req.employee[0].email},{address:req.body.address,phone:req.body.phone,insta:req.body.insta,facebook:req.body.facebook}).then((data)=>{
         console.log("Updated successfully "+data);
       
     }).catch(err=>{

@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser")
 const employeeRoute = require("./routes/employeeRoute");
 const employeerRoute = require('./routes/employeerRoute');
+const routes = require('./routes/route');
 const errorHandler = require('./middleware/errorHandler')
 const passport = require('passport');
 const session = require('express-session')
@@ -52,5 +53,6 @@ app.listen(PORT , (req,res)=>{
 
 //middleware
 app.use(errorHandler);
+app.use(routes);
 app.use('/employee',employeeRoute);
 app.use('/employeer',employeerRoute);
