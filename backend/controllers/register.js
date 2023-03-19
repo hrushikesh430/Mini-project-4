@@ -33,14 +33,28 @@ exports.getRegister = tryCatch(async(req,res,next)=>{
         throw new AppError(300,"input field not provided",404)
 
     }
-   
-
+    const employee = await Employee.find({email:email});
+    const employeer = await Employeer.find({email:email});
+    if(employee[0])
+    {
+        return res.json({
+            status:"failed to register",
+            reason:"employee already exits with this email"
+        })
+    }
+    if(employeer[0])
+    {
+        return res.json({
+            status:"failed to register",
+            reason:"employee already exits with this email"
+        })
+    }
     if(Type == 2)
     {
         const employer = new Employeer({name,email,password,phone});
         employer.save();
         return res.json({
-            status:"Success",
+            status:"Successfully registered as employeer",
             data:employer 
         });
     }
@@ -49,7 +63,7 @@ exports.getRegister = tryCatch(async(req,res,next)=>{
         const employee = new Employee({name,email,password,phone});
          employee.save();
         return res.json({
-            status:"Success",
+            status:"Successfully registered as employee",
             data:employee 
         });
     }
@@ -57,7 +71,7 @@ exports.getRegister = tryCatch(async(req,res,next)=>{
 
     
     res.json({
-        status:"Success",
+        status:"failed to register",
         
     });
 })

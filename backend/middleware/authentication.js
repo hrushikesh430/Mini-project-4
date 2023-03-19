@@ -27,7 +27,13 @@ const autheticationToken =  async(req,res,next)=>{
         req.password = data.password; 
         req.employee = await Employee.find({email:data.email,password:data.password});
         req.employeer = await Employeer.find({email:data.email,password:data.password});
-    
+        if(req.employee[0] && req.employeer[0])
+        {
+            return res.json({
+                status:"failed",
+                reason:"user not created"
+            })
+        }
         return next();
     } catch (error) {
         throw new AppError(300,"token expire",403);

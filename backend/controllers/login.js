@@ -33,25 +33,43 @@ exports.postLogin = tryCatch(async(req,res,next)=>{
     let employee = await Employee.find({email,password});
     let employeer = await Employeer.find({email,password});
    
-    if(!employee && !employeer)
+    if(!employee[0] && !employeer[0])
     {
-       throw AppError(300,"User Not Found",404);
+       return res.json({
+            status:"failed to login",
+            reason:"user not found"
+       })
     }
-
-    if(employee)
+    if(employee[0])
     {
-
+        
+        // console.log(req.body.password);
+        // console.log(employee[0].password);
+        if(req.body.password != employee[0].password)
+        {
+            return res.json({
+                status:"failed to login",
+                reason:"passworrd incorret"
+            })
+        }
         const accessToken = jwt.sign({email,password},process.env.ACCESS_TOKEN);
         localStorage.setItem('status', 'employee');
-        console.log(localStorage.getItem('status'));
+        console.log(employee[0].password);
         return res.cookie("access_token",accessToken).json({
             status:"Successful as employee",
             token:accessToken,
             data:employee
         })
     }
-    if(employeer)
+    if(employeer[0])
     {
+        if(req.body.password != employeer[0].password)
+        {
+            return res.json({
+                status:"failed to login",
+                reason:"passworrd incorret"
+            })
+        }
         const accessToken = jwt.sign({email,password},process.env.ACCESS_TOKEN);
         localStorage.setItem('status', 'employeer');
         console.log(localStorage.getItem('status'));
@@ -61,6 +79,11 @@ exports.postLogin = tryCatch(async(req,res,next)=>{
             data:employeer
         })
     }
+
+    res.json({
+        status:"failed to login",
+        reason:"user not found"
+    })
 })
 
 exports.getLogin = tryCatch(async(req,res,next)=>{

@@ -17,7 +17,13 @@ const employeeProfile = require('../controllers/employee/employeeProfile');
 const employeeAboutMe = require('../controllers/employee/employeeAboutMe');
 // const employeerAboutMe = require('../controllers/employeerAboutMe');
 const employeeSkills = require('../controllers/employee/employeeSkills');
+// const employeeProfileImg = require('../controllers/employee/employeeProfileImg');
+const multer = require("multer");
+// const {getStorage,ref,getDownloadURL,uploadBytesResumable} = require("firebase/storage");
+// const profileFirebase = require('../../models/profileFirebase');
+// const storage = getStorage();
 
+const upload = multer({storage:multer.memoryStorage()});
 const cookieParser = require("cookie-parser");
 // Body-parser middleware
 app.use(bodyParser.urlencoded({extended:false}))
@@ -77,6 +83,9 @@ router.post('/updateAboutMe', autheticationToken,employeeAboutMe.postEmployeeAbo
 // skills for employee
 router.get('/updateSkills',autheticationToken,employeeSkills.getEmployeeSkills);
 router.post('/updateSkills',autheticationToken,employeeSkills.postEmployeeSkills);
+
+// profile image upload
+// router.post('/uploadProfileImg',upload.single('filename'),employeeProfileImg.postProfileImg);
 
 router.get('/sample',autheticationToken,sample.getSample);
 

@@ -17,6 +17,13 @@ const employeeProfile = require('../controllers/employee/employeeProfile');
 const employeeAboutMe = require('../controllers/employee/employeeAboutMe');
 // const employeerAboutMe = require('../controllers/employeerAboutMe');
 const employeeSkills = require('../controllers/employee/employeeSkills');
+// const employeeProfileImg = require('../controllers/employee/employeeProfileImg');
+const multer = require("multer");
+// const {getStorage,ref,getDownloadURL,uploadBytesResumable} = require("firebase/storage");
+// const profileFirebase = require('../../models/profileFirebase');
+// const storage = getStorage();
+
+const upload = multer({storage:multer.memoryStorage()});
 
 const cookieParser = require("cookie-parser");
 // Body-parser middleware
@@ -76,5 +83,7 @@ router.post('/register',register.postRegister)
 //OAuth
 router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }),Oauth.getAuth);
 router.get('/landing',passport.authenticate('google', { failureRedirect: '/error' }),Oauth.getCallback)
+
+
 
 module.exports = router;   
