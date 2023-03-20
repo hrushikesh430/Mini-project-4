@@ -21,7 +21,7 @@ exports.getRegister = tryCatch(async(req,res,next)=>{
     res.json({
         status:"Success"
     })
- })
+ });
  
 
  exports.postRegister = tryCatch(async(req,res,next)=>{

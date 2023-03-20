@@ -34,17 +34,17 @@ exports.getCallback = tryCatch(async(req,res)=>{
     // console.log(req.user.emails[0].value)
     const employee = await Employee.find({email:req.user.emails[0].value});
     // const employeer = await Employeer.find({email:req.user.emails[0].value});
-
+    // console.log(employee[0])
     if(employee[0])
     {
         
-        if(req.body.password != employee[0].password)
-        {
-            return res.json({
-                status:"failed to login",
-                reason:"passworrd incorret"
-            })
-        }
+        // if(req.body.password != employee[0].password)
+        // {
+        //     return res.json({
+        //         status:"failed to login",
+        //         reason:"passworrd incorret"
+        //     })
+        // }
         // console.log("here 1")
         
         const accessToken = jwt.sign({employee},process.env.ACCESS_TOKEN);
@@ -60,13 +60,13 @@ exports.getCallback = tryCatch(async(req,res)=>{
     if(employeer[0])
     {
     // console.log("here 2")
-         if(req.body.password != employeer[0].password)
-        {
-            return res.json({
-                status:"failed to login",
-                reason:"passworrd incorret"
-            })
-        }
+        //  if(req.body.password != employeer[0].password)
+        // {
+        //     return res.json({
+        //         status:"failed to login",
+        //         reason:"passworrd incorret"
+        //     })
+        // }
 
         const accessToken = jwt.sign({employeer},process.env.ACCESS_TOKEN);
         localStorage.setItem('status', 'employeer');
@@ -78,7 +78,7 @@ exports.getCallback = tryCatch(async(req,res)=>{
         })
     }
 
-    res,json({
+    res.json({
         status:"failed to login",
         reason:"user not found"
     })  
