@@ -11,7 +11,9 @@ const routes = require('./routes/route');
 const errorHandler = require('./middleware/errorHandler')
 const passport = require('passport');
 const session = require('express-session')
+const cors = require('cors');
 
+app.use(cors());
 
 
 
