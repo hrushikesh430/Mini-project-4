@@ -36,6 +36,10 @@ const employee = new mongoose.Schema({
         type:String
     }
     ,
+    loginTime:{
+        type:Boolean,
+        default:false,
+    },
     skills:[
         {
             type:String,

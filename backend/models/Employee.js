@@ -31,6 +31,10 @@ const employee = new mongoose.Schema({
         default:null
         
     },
+    loginTime:{
+        type:Boolean,
+        default:false,
+    },
     insta:{
         type:String
     },

@@ -55,6 +55,15 @@ exports.postLogin = tryCatch(async(req,res,next)=>{
         const accessToken = jwt.sign({email,password},process.env.ACCESS_TOKEN);
         localStorage.setItem('status', 'employee');
         console.log(employee[0].password);
+        
+        if(employee[0].loginTime == false)
+        {
+           
+            await Employee.findOneAndUpdate({email},{$set:{loginTime:true}});
+            
+        }
+       
+
         return res.cookie("access_token",accessToken).json({
             status:"Successful as employee",
             token:accessToken,
@@ -70,6 +79,12 @@ exports.postLogin = tryCatch(async(req,res,next)=>{
                 reason:"passworrd incorret"
             })
         }
+        if(employeer[0].loginTime == false)
+        {
+            
+            await Employeer.findOneAndUpdate({email},{loginTime:true});
+        }
+       
         const accessToken = jwt.sign({email,password},process.env.ACCESS_TOKEN);
         localStorage.setItem('status', 'employeer');
         console.log(localStorage.getItem('status'));
@@ -80,7 +95,7 @@ exports.postLogin = tryCatch(async(req,res,next)=>{
         })
     }
 
-    res.json({
+    return res.json({
         status:"failed to login",
         reason:"user not found"
     })
