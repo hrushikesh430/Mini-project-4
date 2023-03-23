@@ -9,7 +9,7 @@ const jobPost = new mongoose.Schema({
         type:String,
        
     },
-    woekDuration:{
+    workDuration:{
         type:String,
     
     },
@@ -17,6 +17,10 @@ const jobPost = new mongoose.Schema({
         type:String,
 
     },
+    workDescription:{
+        type:String,
+    }
+    ,
     workFrom:{
         type:String,
    

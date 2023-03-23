@@ -21,7 +21,7 @@ exports.getEmployeeSkills = tryCatch(async(req,res,next)=>{
 
     return res.json({
         status:"success",
-        data:req.employee[0]
+        data:req.employee[0].skills
     })
 })
 
@@ -36,6 +36,6 @@ exports.postEmployeeSkills = tryCatch(async(req,res,next)=>{
     
     return res.json({
         status:"succesfully profile updated",
-        data:data
+        data:data[0].skills
     })
 })

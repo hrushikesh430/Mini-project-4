@@ -37,6 +37,7 @@ exports.postEmployeeProfile = tryCatch(async(req,res,next)=>{
     })
     return res.json({
         status:"succesfully profile updated",
-        data:data
+        address:data[0].address,
+        phone:data[0].phone
     })
 })

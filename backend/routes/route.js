@@ -17,6 +17,7 @@ const employeeProfile = require('../controllers/employee/employeeProfile');
 const employeeAboutMe = require('../controllers/employee/employeeAboutMe');
 // const employeerAboutMe = require('../controllers/employeerAboutMe');
 const employeeSkills = require('../controllers/employee/employeeSkills');
+const allJobs = require('../controllers/alljobs');
 // const employeeProfileImg = require('../controllers/employee/employeeProfileImg');
 const multer = require("multer");
 // const {getStorage,ref,getDownloadURL,uploadBytesResumable} = require("firebase/storage");
@@ -84,6 +85,7 @@ router.post('/register',register.postRegister)
 router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }),Oauth.getAuth);
 router.get('/landing',passport.authenticate('google', { failureRedirect: '/error' }),Oauth.getCallback)
 
-
+// allJobs
+router.post('/alljobs',allJobs.postAllJobs);
 
 module.exports = router;   

@@ -30,10 +30,10 @@ exports.postJobPostForm = tryCatch(async(req,res,next)=>{
   
 
     const data = await Employeer.find({email:req.employeer[0].email})
-    const {workName,workAddress,workDuration,workTime,workFrom,latitude,longitude,postTime} = req.body;
+    const {workName,workAddress,workDuration,workTime,workFrom,latitude,longitude,postTime,workDescription} = req.body;
     const lat = parseFloat(latitude);
     const long = parseFloat(longitude);
-    const jobPost = new JobPost({workName,workAddress,workDuration,workTime,workFrom,location:{type:"Point",coordinates:[lat,long]},employeerId:data[0]._id,postTime});
+    const jobPost = new JobPost({workName,workAddress,workDuration,workTime,workFrom,location:{type:"Point",coordinates:[long,lat]},employeerId:data[0]._id,postTime,workDescription});
     jobPost.save();
 
 

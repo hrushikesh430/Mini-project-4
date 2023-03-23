@@ -20,7 +20,7 @@ exports.getEmployeerAboutMe = tryCatch(async(req,res,next)=>{
    
     return res.json({
         status:"success",
-        data:req.employeer[0]
+        data:req.employeer[0].aboutMe
     })
 })
 
@@ -33,7 +33,7 @@ exports.postEmployeerAboutMe = tryCatch(async(req,res,next)=>{
     })
     return res.json({
         status:"succesfully profile updated",
-        data:data
+        data:data[0].aboutMe
     })
 
 })
