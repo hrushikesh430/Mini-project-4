@@ -54,7 +54,7 @@ exports.postLogin = tryCatch(async(req,res,next)=>{
         }
         const accessToken = jwt.sign({email,password},process.env.ACCESS_TOKEN);
         localStorage.setItem('status', 'employee');
-        console.log(employee[0].password);
+        // console.log(employee[0].password);
         
         if(employee[0].loginTime == false)
         {

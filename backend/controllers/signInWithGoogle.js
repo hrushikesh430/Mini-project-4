@@ -47,6 +47,12 @@ exports.getCallback = tryCatch(async(req,res)=>{
         // }
         // console.log("here 1")
         
+        if(employee[0].loginTime == false)
+        {
+            
+            await Employee.findOneAndUpdate({email},{loginTime:true});
+        }
+
         const accessToken = jwt.sign({employee},process.env.ACCESS_TOKEN);
         localStorage.setItem('status', 'employee');
 
@@ -70,7 +76,11 @@ exports.getCallback = tryCatch(async(req,res)=>{
 
         const accessToken = jwt.sign({employeer},process.env.ACCESS_TOKEN);
         localStorage.setItem('status', 'employeer');
-
+        if(employeer[0].loginTime == false)
+        {
+            
+            await Employeer.findOneAndUpdate({email},{loginTime:true});
+        }
         return res.cookie("access_token",accessToken).json({
             status:"Successful as employee",
             token:accessToken,
