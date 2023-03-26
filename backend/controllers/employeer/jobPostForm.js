@@ -41,12 +41,12 @@ exports.postJobPostForm = tryCatch(async(req,res,next)=>{
     const jobPostPerEmployeer = await JobPostPerEmployeer.find({employeerId:data[0]._id});
     if(jobPostPerEmployeer[0])
     {
-        await JobPostPerEmployeer.findOneAndUpdate({employeerId:data[0]._id},{$push:{jobPostsId:jobPost._id}})
+        await JobPostPerEmployeer.findOneAndUpdate({employeerId:data[0]._id.toString()},{$push:{jobPostsId:jobPost._id}})
         console.log(jobPostPerEmployeer[0].jobPostsId)
     }
     else
     {
-        const employeerPostData = new JobPostPerEmployeer({employeerId:data[0]._id,jobPostsId:[jobPost._id]});
+        const employeerPostData = new JobPostPerEmployeer({employeerId:data[0]._id.toString(),jobPostsId:[jobPost._id]});
         employeerPostData.save();
         console.log("saved")
     }

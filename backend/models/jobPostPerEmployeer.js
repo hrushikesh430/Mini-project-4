@@ -1,4 +1,4 @@
-const jobPost = require('./jobPost')
+// const jobPost = require('./jobPost')
 const mongoose = require("mongoose")
 
 const jobPostPerEmployeer = new mongoose.Schema({

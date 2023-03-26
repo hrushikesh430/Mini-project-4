@@ -9,7 +9,7 @@ const GOOGLE_CLIENT_ID = '1023260677636-rilkrn4ohrqidp221jt1vce73crp2fup.apps.go
 const GOOGLE_CLIENT_SECRET = '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';
 const Employee = require('../models/Employee');
 const Employeer = require('../models/Employeer');
-
+const jobPostsPerEmployeer = require('../controllers/employeer/jobPostsPerEmployeer')
 const autheticationToken = require('../middleware/authentication')
 
 
@@ -39,4 +39,9 @@ router.post('/updateAboutMe', autheticationToken,employeerAboutMe.postEmployeerA
 // job post form
 router.get('/jobPostForm',autheticationToken,jobPostForm.getJobPostForm);
 router.post('/jobPostForm',autheticationToken,jobPostForm.postJobPostForm);
+
+
+// job posts per employeer
+router.get('/jobPostsPerEmployeer',autheticationToken,jobPostsPerEmployeer.getEmployeersPosts);
+
 module.exports = router;   
