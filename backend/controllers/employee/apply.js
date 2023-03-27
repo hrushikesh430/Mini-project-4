@@ -10,32 +10,28 @@ const AppError = require("../../utils/AppError");
 const jwt = require("jsonwebtoken")
 const Employee = require('../../models/Employee');
 const Employeer = require('../../models/Employeer');
-
+const JobPost = require('../../models/jobPost')
+const Application = require('../../models/applications');
 // Body-parser middleware
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(cookieParser());
 
-exports.getEmployeeSkills = tryCatch(async(req,res,next)=>{
-  
 
-    return res.json({
-        status:"success",
-        data:req.employee[0].skills
-    })
-})
-
-exports.postEmployeeSkills = tryCatch(async(req,res,next)=>{
+exports.postApply = tryCatch(async(req,res,next)=>{
+   
    
 
-    const data = await Employee.findOneAndUpdate({email:req.employee[0].email},{$push :{skills:req.body.skills}},{new:true}).then((data)=>{
-        console.log("employee skills updated successfully");
-    }).catch(err=>{
-        console.log("failed to update skills of employee");
-    });
-    
+    const postId = req.body.postId;
+    // const employeerId = req.body.employeerId;
+    const data = await Employee.find({email:req.employee[0].email});
+    const updatedData = await JobPost.findOneAndUpdate({_id:postId},{$push:{applicationId:data[0]._id}},{new:true});
+    // const applicationData = new Application({postId:postId,employeeId:data[0]._id,employeerId:employeerId});
+    // applicationData.save();
+
     return res.json({
-        status:"succesfully profile updated",
-        data:data[0].skills
+        status:"succesfully applicant added",
+        // updatedData
     })
+
 })

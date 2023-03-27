@@ -21,6 +21,17 @@ const jobPost = new mongoose.Schema({
         type:String,
     }
     ,
+    applicationId:[
+     {   type:String
+     }
+    ]
+    ,
+    assignedId:[
+        {
+            type:String
+        }
+    ]
+    ,
     workFrom:{
         type:String,
    

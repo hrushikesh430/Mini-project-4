@@ -31,12 +31,14 @@ exports.getEmployeersPosts = tryCatch(async(req,res,next)=>{
     // let postDataWorkFrom = [];
     // let postDataPostTime = [];
     // let postDataEmployeerId = [];
-    let postData = [];
+    let postData=[];
     for(let i = 0 ; i < cnt ; i++)
     {
        let temppostData = (await JobPost.find({_id:posts[0].jobPostsId[i]}));
-        temppostData.toArray;
+        // temppostData.toArray;
+        
         postData.push(temppostData)
+        
        console.log(postData)
     }
     return res.json({

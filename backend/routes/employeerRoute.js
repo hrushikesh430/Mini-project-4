@@ -11,8 +11,8 @@ const Employee = require('../models/Employee');
 const Employeer = require('../models/Employeer');
 const jobPostsPerEmployeer = require('../controllers/employeer/jobPostsPerEmployeer')
 const autheticationToken = require('../middleware/authentication')
-
-
+const acceptEmployee = require('../controllers/employeer/acceptEmployee');
+const deletePost = require('../controllers/employeer/deletePost');
 const employeerProfile = require('../controllers/employeer/employeerProfile');
 const employeerAboutMe = require('../controllers/employeer/employeerAboutMe');
 const jobPostForm = require('../controllers/employeer/jobPostForm');
@@ -44,4 +44,10 @@ router.post('/jobPostForm',autheticationToken,jobPostForm.postJobPostForm);
 // job posts per employeer
 router.get('/jobPostsPerEmployeer',autheticationToken,jobPostsPerEmployeer.getEmployeersPosts);
 
+
+// delete the job post
+router.post('/deletePost',autheticationToken,deletePost.postDeletePost);
+
+// accept employee
+router.post('/acceptEmployee',autheticationToken,acceptEmployee.postAcceptEmployee);
 module.exports = router;   

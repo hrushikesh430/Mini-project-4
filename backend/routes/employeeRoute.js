@@ -19,6 +19,7 @@ const employeeAboutMe = require('../controllers/employee/employeeAboutMe');
 const employeeSkills = require('../controllers/employee/employeeSkills');
 // const employeeProfileImg = require('../controllers/employee/employeeProfileImg');
 const multer = require("multer");
+const apply = require('../controllers/employee/apply');
 // const {getStorage,ref,getDownloadURL,uploadBytesResumable} = require("firebase/storage");
 // const profileFirebase = require('../../models/profileFirebase');
 // const storage = getStorage();
@@ -83,6 +84,9 @@ router.post('/updateAboutMe', autheticationToken,employeeAboutMe.postEmployeeAbo
 // skills for employee
 router.get('/updateSkills',autheticationToken,employeeSkills.getEmployeeSkills);
 router.post('/updateSkills',autheticationToken,employeeSkills.postEmployeeSkills);
+
+// apply for job
+router.post('/apply',autheticationToken,apply.postApply)
 
 // profile image upload
 // router.post('/uploadProfileImg',upload.single('filename'),employeeProfileImg.postProfileImg);

@@ -23,6 +23,7 @@ const multer = require("multer");
 // const {getStorage,ref,getDownloadURL,uploadBytesResumable} = require("firebase/storage");
 // const profileFirebase = require('../../models/profileFirebase');
 // const storage = getStorage();
+const logout = require('../controllers/logout')
 
 const upload = multer({storage:multer.memoryStorage()});
 
@@ -87,5 +88,8 @@ router.get('/landing',passport.authenticate('google', { failureRedirect: '/error
 
 // allJobs
 router.post('/alljobs',allJobs.postAllJobs);
+
+// logout
+router.get('/logout',autheticationToken,logout.getLogout)
 
 module.exports = router;   
